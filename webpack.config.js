@@ -10,10 +10,26 @@ const folderDistribute = 'dist';
 const switchMinify = false;
 const useSSL = true;
 const cssConfigEnvironments = {
-  'dev': ['style-loader', 'css-loader?sourceMap', 'sass-loader'],
+  'dev': ['style-loader', 'css-loader?sourceMap', 'sass-loader', {
+    loader: 'sass-resources-loader',
+    options: {
+      // Provide path to the file with resources
+      resources: [
+        './src/resources.scss'
+      ],
+    },
+  }],
   'prod': ExtractTextPlugin.extract({
     fallback: 'style-loader',
-    use: ['css-loader', 'sass-loader']
+    use: ['css-loader', 'sass-loader', {
+      loader: 'sass-resources-loader',
+      options: {
+        // Provide path to the file with resources
+        resources: [
+          './src/resources.scss'
+        ],
+      },
+    }]
   })
 }
 
@@ -35,15 +51,15 @@ module.exports = {
       { test: /\.scss$/, use: cssConfig },                                                // Converts sass to css
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
-        loaders: [
+        use: [
           'file-loader?name=images/[name].[ext]',                                         // See https://github.com/webpack-contrib/file-loader
           'image-webpack-loader?bypassOnDebug&optimizationLevel=7&interlaced=false'       // See https://github.com/tcoopman/image-webpack-loader
         ]
       },
       // Bootstrap 3, see https://github.com/shakacode/bootstrap-loader#installation
-      { test: /\.(woff2?|svg)$/, loader: 'url-loader?limit=10000&name=fonts/[name].[ext]' },
-      { test: /\.(ttf|eot)$/, loader: 'file-loader?name=fonts/[name].[ext]' },
-      { test: /bootstrap-sass[\/\\]assets[\/\\]javascripts[\/\\]/, loader: 'imports-loader?jQuery=jquery' }
+      { test: /\.(woff2?|svg)$/, use: 'url-loader?limit=10000&name=fonts/[name].[ext]' },
+      { test: /\.(ttf|eot)$/, use: 'file-loader?name=fonts/[name].[ext]' },
+      { test: /bootstrap-sass[\/\\]assets[\/\\]javascripts[\/\\]/, use: 'imports-loader?jQuery=jquery' }
     ]
   },
   devServer: {
@@ -53,7 +69,7 @@ module.exports = {
     https: useSSL,
     stats: 'errors-only',
     hot: true,
-    open: true,
+    //open: true,
     openPage: ''                                                                      // Bugfix https://stackoverflow.com/questions/44924263/webpack-dev-server-opens-localhost8080-undefined
   },
   plugins: [
@@ -66,7 +82,7 @@ module.exports = {
       template: './src/content.html'
     }),
     new ExtractTextPlugin({                                                                 // Builds .css, see https://github.com/webpack-contrib/extract-text-webpack-plugin
-      filename: '/css/[name].css',
+      filename: './css/[name].css',
       allChunks: true,
       disable: !envIsProd
     }),
