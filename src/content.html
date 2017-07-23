@@ -1,14 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-GB" dir="ltr">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+  <meta charset="utf-8">
+  <meta name="robots" content="index,follow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <title>
     <%= htmlWebpackPlugin.options.title %>
   </title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <link rel="canonical" href="http://www.YOUNAMEIT.com" />
+
+  <meta property="og:title" content="" />
+  <meta property="og:description" content="" />
+  <meta property="og:url" content="http://YOUNAMEIT.com" />
+  <meta property="og:locale" content="en_GB" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="YOUNAMEIT.com" />
+
 </head>
 
 <body>
@@ -17,7 +29,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-4">
-        <p><img class="img-responsive" src=<%= require( "./images/img_twitter-bootstrap.png") %> /></p>
+        <p><img class="img-responsive" src=<%=require( "./images/img_twitter-bootstrap.png") %> /></p>
       </div>
       <div class="col-md-8">
         <h1>Webpack 2 and Twitter Bootstrap</h1>
@@ -63,7 +75,7 @@
   </div>
 
   <p>Hello World</p>
-  <img src=<%= require( './images/test.png') %> />
+  <img src=<%=require( './images/test.png') %> />
 
 
 </body>
