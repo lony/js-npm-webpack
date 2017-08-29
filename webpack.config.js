@@ -42,6 +42,13 @@ module.exports = {
                     'file-loader?name=img/[name].[ext]',                                        // See https://github.com/webpack-contrib/file-loader
                     'image-webpack-loader?bypassOnDebug'                                        // See https://github.com/tcoopman/image-webpack-loader
                 ]
+            },
+            {
+                test: /\.hbs$/,
+                loader: 'handlebars-loader',
+                query: {
+                    inlineRequires: '/img/'
+                }
             }
         ]
     },
@@ -68,7 +75,7 @@ module.exports = {
                 collapseWhitespace: switchMinify
             },
             hash: true,
-            template: './src/content.html'
+            template: './src/content.hbs'
         }),
         new FaviconsWebpackPlugin({
           logo: './src/img/logo.png',
